@@ -71,10 +71,10 @@ Customer Support IVR System/
 
 ## Current Status
 
-- ✅ **Mock Telephony Provider**: Fully functional local call simulation, queueing, agent assignment, and recording generation.
-- ✅ **Real-Time CRM**: 9 React pages with Socket.IO live updates working end-to-end.
-- ⏳ **Exotel Provider**: Interface prepared; ready to be integrated when live Exotel API keys are available.
-- ⏳ **OpenAI Realtime API**: Voice orchestrator interface set up for future WebSocket stream connection.
+-  **Mock Telephony Provider**: Fully functional local call simulation, queueing, agent assignment, and recording generation.
+-  **Real-Time CRM**: 9 React pages with Socket.IO live updates working end-to-end.
+-  **Provider**: Interface prepared; ready to be integrated when live API keys are available.
+-  **OpenAI Realtime API**: Voice orchestrator interface set up for future WebSocket stream connection.
 
 ---
 
@@ -84,7 +84,6 @@ As this project evolves, I plan to:
 1. Integrate live Exotel webhooks for real phone numbers.
 2. Connect OpenAI's Realtime Voice API for real-time speech-to-speech AI support calls.
 3. Add sentiment trend charts to the supervisor analytics page.
-4. Add automated test coverage with Jest and Supertest.
 
 ---
 
@@ -96,8 +95,8 @@ As this project evolves, I plan to:
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/customer-support-ivr-system.git
-cd customer-support-ivr-system
+git clone https://github.com/your-username/customer-support-system.git
+cd customer-support-system
 ```
 
 ### 2. Start Local Databases
@@ -142,4 +141,6 @@ Open your browser at `http://localhost:5173`. You will see the floating **Dev Te
 
 ## Author
 
-Created with ❤️ while learning and building software. Feel free to open an issue or reach out if you have any questions or feedback!
+## Author
+
+Built during my internship while learning how modern customer support systems work. This project is still evolving, and I'm continuously improving it. Feel free to open an issue or share your feedback.
