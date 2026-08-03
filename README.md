@@ -1,6 +1,6 @@
 # Customer Support IVR & CRM System
 
-A full-stack MERN application for managing customer support calls, tickets, call queues, and agent presence in real time.
+A full-stack MERN monorepo for managing customer support calls, tickets, call queues, and agent presence in real time.
 
 ---
 
@@ -48,23 +48,34 @@ I built this project to learn how to architect a complete support workflow from 
 ## Project Structure
 
 ```text
-Customer Support IVR System/
-├── client/                     # React Frontend SPA
+Customer Support IVR System/      ← Monorepo root
+├── backend/                      ← Node.js Express + Socket.IO API
 │   ├── src/
-│   │   ├── components/         # UI Primitives, Layouts, & Developer Simulator
-│   │   ├── pages/              # CRM Pages (Dashboard, Agent, Supervisor, Queue, etc.)
-│   │   ├── services/           # Axios REST API & Socket.IO Clients
-│   │   └── types/              # Frontend TypeScript Interfaces
-├── src/                        # Backend Node.js Service
-│   ├── api/                    # Express Controllers, Repositories, & Routes
-│   ├── providers/              # Provider Abstraction (Interfaces, Mock Provider, & Factory)
-│   ├── modules/                # Core Business Logic (Agents, Auth, Calls, Queue, Tickets)
-│   ├── sockets/                # Socket.IO Gateway & Handlers
-│   ├── config/                 # Environment, Database, & Logger Configs
-│   └── server.ts               # HTTP & WebSocket Server Entrypoint
-├── docker-compose.yml          # Local MongoDB & Redis Containers
-├── .env.example                # Environment Variable Template
-└── package.json                # Project Dependencies & Scripts
+│   │   ├── api/                  # Express Controllers, Repositories & Routes
+│   │   ├── providers/            # Provider Abstraction (Interfaces, Mock & Factory)
+│   │   ├── modules/              # Core Business Logic (Agents, Auth, Calls, Queue, Tickets)
+│   │   ├── sockets/              # Socket.IO Gateway & Handlers
+│   │   ├── config/               # Environment, Database & Logger Configs
+│   │   └── server.ts             # HTTP & WebSocket Server Entrypoint
+│   ├── package.json
+│   ├── tsconfig.json
+│   ├── Dockerfile
+│   └── .env.example
+├── frontend/                     ← React SPA (Vite)
+│   ├── src/
+│   │   ├── components/           # UI Primitives, Layouts & Developer Simulator
+│   │   ├── pages/                # CRM Pages (Dashboard, Agent, Supervisor, Queue, etc.)
+│   │   ├── services/             # Axios REST API & Socket.IO Clients
+│   │   └── types/                # Frontend TypeScript Interfaces
+│   ├── package.json
+│   ├── vite.config.ts
+│   └── Dockerfile
+├── nginx/
+│   └── nginx.conf                # Reverse proxy config
+├── docker-compose.yml            # Local MongoDB & Redis containers (dev)
+├── docker-compose.prod.yml       # Full production stack
+├── package.json                  # Monorepo root (concurrently scripts)
+└── .env.example → backend/.env.example
 ```
 
 ---
@@ -105,37 +116,50 @@ docker-compose up -d
 ```
 *This starts MongoDB on port 27017 and Redis on port 6379.*
 
-### 3. Install Dependencies
+### 3. Install All Dependencies
 ```bash
-# Install backend dependencies
+# Option A — install everything from the monorepo root:
 npm install
+npm run install:all
 
-# Install frontend dependencies
-cd client
-npm install
-cd ..
+# Option B — install each manually:
+cd backend && npm install && cd ..
+cd frontend && npm install && cd ..
 ```
 
 ### 4. Configure Environment Variables
-Copy `.env.example` to `.env`:
 ```bash
-cp .env.example .env
+cp backend/.env.example backend/.env
 ```
 *(The default values are configured for local development using the Mock Provider.)*
 
 ### 5. Run Development Servers
-Start the backend server:
+
+**Option A — Both together from the monorepo root:**
 ```bash
 npm run dev
 ```
 
-In a new terminal, start the React frontend:
+**Option B — Individually:**
 ```bash
-cd client
+# Terminal 1
+cd backend
+npm run dev
+
+# Terminal 2
+cd frontend
 npm run dev
 ```
 
 Open your browser at `http://localhost:5173`. You will see the floating **Dev Telephony Simulator** button in the lower-right corner to test incoming calls right away!
+
+---
+
+## Docker (Production)
+
+```bash
+docker-compose -f docker-compose.prod.yml up --build -d
+```
 
 ---
 
