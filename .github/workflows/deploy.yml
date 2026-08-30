@@ -65,7 +65,7 @@ jobs:
           tags: crm-backend:latest
 
       - name: Security Scan Container with Trivy
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: 'crm-backend:latest'
           format: 'table'
@@ -91,7 +91,7 @@ jobs:
 
       - name: Execute Remote Deployment via SSH
         if: steps.check-secrets.outputs.configured == 'true'
-        uses: appleboy/ssh-action@v1.0.3
+        uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.PROD_SERVER_IP }}
           username: ${{ secrets.PROD_SERVER_USER }}
